@@ -1,1 +1,1 @@
-# Django_DynamicBlog
+# Dynamic_Blog

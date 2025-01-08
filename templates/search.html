@@ -1,0 +1,39 @@
+{% extends './base/base.html' %}
+
+{% block content %}
+
+{% if keyword %}
+<h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Search Keyword - {{ keyword }}</h3>
+{% endif %}
+
+<main role="main" class="container p-0">
+  {% if error_message %}
+  <div class="alert alert-danger" role="alert">
+    {{ error_message }}
+  </div>
+  {% endif %}
+  
+  <div class="row">
+    <div class="col-md-8 blog-main">
+      {% if blogs %}
+      {% for i in blogs %}
+      <div class="card border-0">
+        <div class="card-body">
+          <h3><a href="{% url 'blogs' i.slug %}">{{ i.title }}</a></h3>
+          <small class="mb-1 text-muted">{{ i.created_at|timesince }} ago | {{ i.author }}</small>
+          <p class="card-text">{{ i.short_description|truncatewords:20 }}</p>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      {% if not error_message %}
+      <p class="text-muted">No blogs found matching your keyword.</p>
+      {% endif %}
+      {% endif %}
+    </div>
+    <!-- /.blog-main -->
+  </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+{% endblock %}
